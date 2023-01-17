@@ -1,29 +1,27 @@
 const ProductModel = require('../models/ProductModel');
 
 class ProductController {
-    async store(req, res){
+    async register(req, res){
         try {
-            const { title, description, price } = req.body;
+            const { livro } = req.body;
 
-            const productAlreadyExists = await ProductModel.findOne({ title });
+            const productAlreadyExists = await ProductModel.findOne({ livro });
 
             if(productAlreadyExists){
-                return res.status(400).json({message: "This name already exists"})
-            }
-
-            if(!title || !description || !price) {
-                return res.status(400).json({message: "Title, Description and Price are required"})
+                return res.status(400).json({message: "This book already exists"})
             }
 
             const createdProduct = await ProductModel.create(req.body);
 
             return res.status(200).json(createdProduct);
         } catch (error) {
+            console.log(error)
+
             return res.status(404).json({message: "Failed to create product!"})
         }
     }
 
-    async index(req, res){
+    async listproducts(req, res){
         try {
             const products = await ProductModel.find();
 
@@ -34,7 +32,7 @@ class ProductController {
         
     }
 
-    async show(req, res){
+    async listproductsbyid(req, res){
         try {
             const { id } = req.params;
 
@@ -50,7 +48,7 @@ class ProductController {
         }
     }
 
-    async update(req, res){
+    async updateproduct(req, res){
         try {
             const { id } = req.params;
 
@@ -63,7 +61,7 @@ class ProductController {
 
     }
 
-    async destroy(req, res){
+    async deleteproduct(req, res){
         try {
             const { id } = req.params;
             
