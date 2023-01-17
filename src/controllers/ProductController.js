@@ -77,6 +77,20 @@ class ProductController {
             return res.status(404).json({message: "Failed to delete product!"})
         }
     }
+
+    async listCategoryBooks(req, res){
+        const { category } = req.params;
+        console.log(category)
+
+        try {
+            const categoryBooks = await ProductModel.find({ genero: category });
+
+            return res.status(200).json( categoryBooks );
+        } catch (error) {
+            console.log(error)
+            return res.status(404).json({message: "Failed to list books!"})
+        }
+    }
 }
 
 module.exports = new ProductController();

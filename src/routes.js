@@ -12,6 +12,7 @@ routes.post('/registration', RegistrationController.registerNewUser)
 
 routes.get('/products', ProductController.listproducts)
 routes.get('/products/:id', ProductController.listproductsbyid)
+routes.get('/products/filter/:category', ProductController.listCategoryBooks)
 routes.get('/order', OrderController.listOrders)
 routes.get('/registration', RegistrationController.listRegistration)
 
