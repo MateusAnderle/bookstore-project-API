@@ -3,8 +3,12 @@ const app = require('./app');
 const Loaders = require('./loaders');
 const cors = require('cors');
 
-Loaders.start();
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', "*")
+    app.use(cors());
+    next();
+})
 
-app.use(cors());
+Loaders.start();
 
 app.listen(process.env.PORT || 3333);
