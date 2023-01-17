@@ -14,7 +14,7 @@ const ProductSchema = new Schema({
   precoSugerido: String,
   preco: String,
   sinopse: String,
-  Idioma: String,
+  idioma: String,
   isbn: Number,
   fabricante: String,
   dimensoes: String,
