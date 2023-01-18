@@ -80,12 +80,22 @@ class ProductController {
 
     async listCategoryBooks(req, res){
         const { category } = req.params;
-        console.log(category)
 
         try {
             const categoryBooks = await ProductModel.find({ genero: category });
-
             return res.status(200).json( categoryBooks );
+        } catch (error) {
+            console.log(error)
+            return res.status(404).json({message: "Failed to list books!"})
+        }
+    }
+
+    async listSearchBooks(req, res){
+        const { search } = req.params;
+
+        try {
+            const searchBooks = await ProductModel.find({ livro: search });
+            return res.status(200).json( searchBooks );
         } catch (error) {
             console.log(error)
             return res.status(404).json({message: "Failed to list books!"})
