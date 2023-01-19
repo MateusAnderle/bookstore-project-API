@@ -112,7 +112,9 @@ class ProductController {
             const allBooks = await ProductModel.find()
             allBooks.map(item => {
                 const filter = item.livro.toLowerCase().includes(searchLower)
-                if(filter) filteredBooks.push(item)
+                const filterCategory = item.genero.toLowerCase().includes(searchLower)
+                const filterAuthor = item.autor.toLowerCase().includes(searchLower)
+                if(filter || filterCategory || filterAuthor) filteredBooks.push(item)
             })
 
             if(filteredBooks.length === 0) {
