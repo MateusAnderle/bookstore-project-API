@@ -22,14 +22,26 @@ class ProductController {
     }
 
     async listproducts(req, res){
-        try {
-            const products = await ProductModel.find()
+        const page = req.query.page || 0
+        const productsPerPage = 10
+        let pagination = []
 
-            return res.status(200).json( products )
+        try {
+            const response = await ProductModel.find()
+            response.map((item, index) => {
+                if(index >= page * productsPerPage && index < page * productsPerPage + productsPerPage ) {
+                    return pagination.push(item)
+                }
+            })
+
+            if(pagination.length === 0) {
+                return res.status(404).json('There are no more pages ')
+            }
+
+            return res.status(200).json(pagination)
         } catch (error) {
             return res.status(404).json({message: "Failed to list products!"})
         }
-        
     }
 
     async listproductsbyid(req, res){
